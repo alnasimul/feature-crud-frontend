@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
+import AdminPage from "./pages/Admin/AdminPage";
 import Home from "./pages/Home/Home";
 import LoginPage from "./pages/Login/LoginPage";
 import RegisterPage from "./pages/Register/RegisterPage";
@@ -21,6 +22,9 @@ function App() {
             </Route>
             <Route path="/register">
               <RegisterPage />
+            </Route>
+            <Route path="/admin">
+              <AdminPage/>
             </Route>
           </Switch>
         </Router>

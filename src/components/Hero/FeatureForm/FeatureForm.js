@@ -14,7 +14,8 @@ const FeatureForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    const requestDate = new Date();
+    const requestDate = new Date().toDateString();
+    const publish = false;
 
     if(title && description ){
       try {
@@ -23,7 +24,7 @@ const FeatureForm = () => {
           headers: {
             'Content-Type' : 'application/json'
           },
-          body:JSON.stringify({useremail: loggedInUser.email, username: loggedInUser.name, title, description, requestDate})
+          body:JSON.stringify({publish, useremail: loggedInUser.email, username: loggedInUser.name, title, description, requestDate})
         })
         .then(res => res.json())
         .then(data => {

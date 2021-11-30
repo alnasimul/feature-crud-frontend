@@ -34,15 +34,17 @@ const Header = () => {
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <Link to="/">
-              <a class="nav-link">
-                <strong>Home</strong>
-              </a>
+                <a class="nav-link">
+                  <strong>Home</strong>
+                </a>
               </Link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <strong>Link</strong>
-              </a>
+              <Link to="admin">
+                <a class="nav-link">
+                  <strong>Admin Panel</strong>
+                </a>
+              </Link>
             </li>
             <li class="nav-item">
               <Link to="/login">
