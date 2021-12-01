@@ -1,13 +1,14 @@
 import React from 'react';
+import Contents from './Contents/Contents';
 import FeatureForm from './FeatureForm/FeatureForm';
-import FeatureTable from './FeatureTable/FeatureTable';
 
-const Hero = () => {
+
+const Hero = ({features}) => {
     return (
         <div className='container my-5'>
             <div className="row">
                 <FeatureForm/>
-                <FeatureTable/>
+                <Contents features={features}/>
             </div>
         </div>
     );

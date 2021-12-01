@@ -5,6 +5,7 @@ import AdminPage from "./pages/Admin/AdminPage";
 import Home from "./pages/Home/Home";
 import LoginPage from "./pages/Login/LoginPage";
 import RegisterPage from "./pages/Register/RegisterPage";
+import PrivateRoute from "./routes/PrivateRoute/PrivateRoute";
 
 export const AuthContext = createContext();
 function App() {
@@ -23,9 +24,9 @@ function App() {
             <Route path="/register">
               <RegisterPage />
             </Route>
-            <Route path="/admin">
+            <PrivateRoute path="/admin">
               <AdminPage/>
-            </Route>
+            </PrivateRoute>
           </Switch>
         </Router>
       </AuthContext.Provider>
