@@ -1,21 +1,20 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react/cjs/react.development";
 import { AuthContext } from "../../App";
 
 const Header = ({getSearchResult}) => {
   const [term, setTerm] = useState("");
   const [isAdmin, setIsAdmin] = useState(false)
   const [loggedInUser, setLoggedInUser] = useContext(AuthContext);
+  const userInfo = JSON.parse( sessionStorage.getItem('userInfo'));
 
   const checkAdmin = (data) => {
-    console.log(data)
     setIsAdmin(data);
     sessionStorage.setItem('admin', JSON.stringify({ admin: data }));
   } 
   
   useEffect(() => {
-    fetch(`http://localhost:5000/checkAdmin/${loggedInUser.email}`)
+    fetch(`http://localhost:5000/checkAdmin/${loggedInUser.email ? loggedInUser.email : userInfo.email}`)
     .then(res => res.json())
     .then(data => checkAdmin(data))
   },[])

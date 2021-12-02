@@ -1,15 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
-import { AuthContext } from "../../../../../App";
 import { Link } from "react-router-dom";
 
-const EditForm = ({ updateContent }) => {
+const EditForm = ({ updateContent, loggedInUser }) => {
   const [id, setId] = useState("");
   const [title, setTitile] = useState("");
   const [description, setDescription] = useState("");
-  const [loggedInUser, setLoggedInUser] = useContext(AuthContext);
+
   useEffect(() => {
     setTitile(updateContent.title);
     setDescription(updateContent.description);

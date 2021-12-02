@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import EditForm from './SingleFeature/EditForm/EditForm';
 
-const FeaturesContent = () => {
+const FeaturesContent = ({loggedInUser}) => {
     const [features, setFeatures] = useState([]);
     const [updateContent, setUpdateContent ] = useState({
         id: '',
@@ -40,7 +40,6 @@ const FeaturesContent = () => {
 
         }
     }
-    console.log(updateContent)
     const deleteFeature = id => {
         try {
             fetch(`http://localhost:5000/deleteFeature/${id}`,{
@@ -81,7 +80,7 @@ const FeaturesContent = () => {
                     }
                 </div>
                 <div className='column column-50'>
-                    <EditForm updateContent={updateContent}></EditForm>
+                    <EditForm updateContent={updateContent} loggedInUser={loggedInUser}></EditForm>
                 </div>
             </div>
         </div>

@@ -91,6 +91,8 @@ export const createUserWithEmailAndPassword = (name,email,password) => {
      });
 }
 
+
+
 export const storeAuthToken = (user) => {
     firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
       .then(function (idToken) {

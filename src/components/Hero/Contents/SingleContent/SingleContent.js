@@ -1,14 +1,13 @@
-import React, { useContext, useEffect } from "react";
+import React, {  useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { AuthContext } from "../../../../App";
-import Comment from './Comment/Comment';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Comment from "./Comment/Comment";
 
-const SingleContent = ({ feature }) => {
+
+const SingleContent = ({ feature, loggedInUser }) => {
   const { _id, username, useremail, requestDate, title, description } = feature;
-  const [loggedInUser, setLoggedInUser] = useContext(AuthContext);
   const [comment, setComment] = useState("");
   const [votes, setVotes] = useState(0);
 
@@ -16,9 +15,9 @@ const SingleContent = ({ feature }) => {
 
   useEffect(() => {
     fetch(`http://localhost:5000/getVotes/${_id}`)
-    .then(res => res.json())
-    .then(data => setVotes(data.length))
-  },[])
+      .then((res) => res.json())
+      .then((data) => setVotes(data.length));
+  }, []);
   useEffect(() => {
     try {
       fetch(`http://localhost:5000/getComments/${_id}`)
@@ -46,7 +45,7 @@ const SingleContent = ({ feature }) => {
             username: loggedInUser.name,
             useremail: loggedInUser.email,
             comment,
-            commentDate
+            commentDate,
           }),
         })
           .then((res) => res.json())
@@ -64,26 +63,35 @@ const SingleContent = ({ feature }) => {
   const createVote = (id) => {
     try {
       fetch(`http://localhost:5000/setUserVote`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          "Content-Type":  "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({contentId: id, username: loggedInUser.name, useremail: loggedInUser.email, voteDate: new Date().toDateString()})
+        body: JSON.stringify({
+          contentId: id,
+          voterId: id + loggedInUser.email,
+          username: loggedInUser.name,
+          useremail: loggedInUser.email,
+          voteDate: new Date().toDateString(),
+        }),
       })
-      .then( res => res.json() )
-      .then( data => {
-        if(data) {
-          toast('You voted successfully')
-          window.location.reload();
-        }
-      })
-      .catch(err => {
-        if(err) toast.error("You Already voted, it's not possible to create new vote !")
-      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) {
+            toast("You voted successfully");
+            window.location.reload();
+          }
+        })
+        .catch((err) => {
+          if (err)
+            toast.error(
+              "You Already voted, it's not possible to create new vote !"
+            );
+        });
     } catch (error) {
-      alert(error)
+      alert(error);
     }
-  }
+  };
 
   return (
     <div className="bg-light p-5 rounded mb-5">
@@ -99,25 +107,34 @@ const SingleContent = ({ feature }) => {
       <hr />
       <p>{description}</p>
 
-      <div className='d-flex justify-content-between'>
-      {
-        loggedInUser.email ? <button className='button button-outline mt-3' onClick={() => createVote(_id)}>Vote</button> : (
+      <div className="d-flex justify-content-between">
+        {loggedInUser.email ? (
+          <button
+            className="button button-outline mt-3"
+            onClick={() => createVote(_id)}
+          >
+            Vote
+          </button>
+        ) : (
           <Link to="/login">
             <a href="" className="button button-primary mt-3">
               Login for vote
             </a>
           </Link>
-        )
-      }
-      <p className='mt-4' style={{ color: 'purple' }}>  <strong> Votes: {votes} </strong> </p>
+        )}
+
+        <p className="mt-4" style={{ color: "purple" }}>
+          {" "}
+          <strong> Votes: {votes} </strong>{" "}
+        </p>
       </div>
 
-      <hr/>
+      <hr />
 
       <div>
-          {
-              contentComments.map(comment => <Comment comment={comment} key={comment._id}/>)
-          }
+        {contentComments.map((comment) => (
+          <Comment comment={comment} key={comment._id} />
+        ))}
       </div>
       <div>
         <form onSubmit={handleSubmit}>

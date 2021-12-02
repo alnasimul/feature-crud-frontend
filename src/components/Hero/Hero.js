@@ -3,12 +3,12 @@ import Contents from './Contents/Contents';
 import FeatureForm from './FeatureForm/FeatureForm';
 
 
-const Hero = ({features}) => {
+const Hero = ({features, loggedInUser}) => {
     return (
         <div className='container my-5'>
             <div className="row">
-                <FeatureForm/>
-                <Contents features={features}/>
+                <FeatureForm loggedInUser={loggedInUser}/>
+                <Contents  features={features} loggedInUser={loggedInUser}/>
             </div>
         </div>
     );

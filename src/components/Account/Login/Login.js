@@ -23,6 +23,7 @@ const Login = () => {
   initializeLoginFramework();
   const [loggedInUser, setLoggedInUser] = useContext(AuthContext);
 
+  
   const history = useHistory();
   const location = useLocation();
 
@@ -43,6 +44,7 @@ const Login = () => {
     });
   };
 
+
   const handleResponse = (res, redirect) => {
     if (res.success) {
       setUser(res);
@@ -56,7 +58,7 @@ const Login = () => {
       },2000);
     }
   };
-  
+
   return (
     <div className="container my-5">
       <div className="row">
