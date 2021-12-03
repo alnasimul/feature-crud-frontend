@@ -1,29 +1,46 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../App";
+import { handleSignOut } from "../Account/loginManager/loginManager";
 
-const Header = ({getSearchResult}) => {
+const Header = ({ getSearchResult }) => {
   const [term, setTerm] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loggedInUser, setLoggedInUser] = useContext(AuthContext);
-  const userInfo = JSON.parse( sessionStorage.getItem('userInfo'));
+  const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
 
   const checkAdmin = (data) => {
     setIsAdmin(data);
-    sessionStorage.setItem('admin', JSON.stringify({ admin: data }));
-  } 
-  
+    sessionStorage.setItem("admin", JSON.stringify({ admin: data }));
+  };
+
   useEffect(() => {
-    fetch(`http://localhost:5000/checkAdmin/${loggedInUser.email ? loggedInUser.email : userInfo.email}`)
-    .then(res => res.json())
-    .then(data => checkAdmin(data))
-  },[])
+    fetch(
+      `http://localhost:5000/checkAdmin/${
+        loggedInUser ? loggedInUser.email : userInfo.email
+      }`
+    )
+      .then((res) => res.json())
+      .then((data) => checkAdmin(data));
+  }, []);
 
- 
+  const setSearchData = (term) => {
+    getSearchResult(term);
+  };
 
-  const setSearchData = term => {
-    getSearchResult(term)
-  }
+  const signOut = () => {
+    handleSignOut()
+    const signedOutUser = {
+        isSignedIn: false,
+        name: '',
+        email: '',
+        photo: '',
+        error: '',
+        success: false
+    }
+    setLoggedInUser(signedOutUser)
+    sessionStorage.removeItem('userInfo')
+}
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -43,7 +60,7 @@ const Header = ({getSearchResult}) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse " id="navbarSupportedContent">
-        <form className="d-flex me-auto my-5" >
+          <form className="d-flex me-auto my-5">
             <input
               className="form-control"
               type="search"
@@ -51,7 +68,12 @@ const Header = ({getSearchResult}) => {
               aria-label="Search"
               onChange={(e) => setTerm(e.target.value)}
             />
-            <Link className='btn btn-outline-success ms-1 p-3' onClick={() =>  setSearchData(term)}> Search </Link>
+            <Link
+              className="btn btn-outline-success ms-1 p-3"
+              onClick={() => setSearchData(term)}
+            >
+              Search
+            </Link>
           </form>
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
@@ -69,11 +91,15 @@ const Header = ({getSearchResult}) => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/login">
-                <a className="nav-link">
-                  <strong>Login</strong>
-                </a>
-              </Link>
+              {userInfo ? (
+                <Link className="nav-link" onClick={signOut}>Logout</Link>
+              ) : (
+                <Link to="/login">
+                  <a className="nav-link">
+                    <strong>Login</strong>
+                  </a>
+                </Link>
+              )}
             </li>
           </ul>
         </div>
