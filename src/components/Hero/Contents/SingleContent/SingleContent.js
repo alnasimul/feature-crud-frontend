@@ -7,7 +7,7 @@ import Comment from "./Comment/Comment";
 
 
 const SingleContent = ({ feature, loggedInUser }) => {
-  const { _id, username, useremail, requestDate, title, description } = feature;
+  const { _id, username, useremail, requestDate, title, description, contentId } = feature;
   const [comment, setComment] = useState("");
   const [votes, setVotes] = useState(0);
 
@@ -28,6 +28,7 @@ const SingleContent = ({ feature, loggedInUser }) => {
     }
   }, []);
 
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
