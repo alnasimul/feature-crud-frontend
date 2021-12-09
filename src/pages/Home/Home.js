@@ -10,7 +10,6 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [features, setFeatures] = useState([]);
   const [loggedInUser, setLoggedInUser] = useContext(AuthContext);
-  const [comments, setComments] = useState([]);
   initializeLoginFramework();
   useEffect(() => {
     checkUserLoggedIn();
@@ -64,7 +63,6 @@ const Home = () => {
       fetch(`http://localhost:5000/comments`)
         .then((res) => res.json())
         .then((data) => {
-          setComments(data);
           sortFeaturesByComments(data);
         });
     } catch (error) {
@@ -74,18 +72,29 @@ const Home = () => {
 
   const sortFeaturesByComments = (comments) => {
     let contentIds = [];
-    comments.map((comment) => contentIds.push(...contentIds, comment.contentId));
+    comments.map((comment) =>
+      contentIds.push(...contentIds, comment.contentId)
+    );
     let uniqueContentIds = [...new Set(contentIds)];
 
-    console.log(uniqueContentIds)
-
     let filteredData = uniqueContentIds.map((key) => {
-      return comments.filter((comment) => comment.contentId === key);
+      const data = comments.filter((comment) => comment.contentId === key);
+      data.contentId = key;
+
+      return data;
     });
 
-    const desc= filteredData.sort((a,b) => b.length - a.length );
+    const desc = filteredData.sort((a, b) => b.length - a.length);
 
-    console.log(desc)
+    const descOrder = desc.map((element) => {
+      return features.filter((feature) => feature._id === element.contentId);
+    });
+
+    const newData = descOrder.map((el) => {
+      return Object.assign({}, ...el);
+    });
+
+    setFeatures(newData);
   };
 
   return (

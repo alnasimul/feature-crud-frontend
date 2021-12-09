@@ -13,6 +13,7 @@ const SingleContent = ({ feature, loggedInUser }) => {
 
   const [contentComments, setContentComments] = useState([]);
 
+
   useEffect(() => {
     fetch(`http://localhost:5000/getVotes/${_id}`)
       .then((res) => res.json())
