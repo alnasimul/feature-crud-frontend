@@ -91,7 +91,7 @@ const Header = ({ getSearchResult }) => {
               </Link>
             </li>
             <li className="nav-item">
-              {userInfo ? (
+              {userInfo || loggedInUser.email ? (
                 <Link className="nav-link" onClick={signOut}>Logout</Link>
               ) : (
                 <Link to="/login">

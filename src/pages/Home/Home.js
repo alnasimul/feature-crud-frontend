@@ -26,7 +26,7 @@ const Home = () => {
           success: true,
         });
       } else {
-        loggedInUser({
+        setLoggedInUser({
           isSignedIn: false,
           name: "",
           email: "",
@@ -57,6 +57,47 @@ const Home = () => {
       console.log(error);
     }
   }, []);
+
+  
+  
+ 
+
+  const getVotes = () => {
+    try {
+      fetch(`http://localhost:5000/votes`)
+        .then((res) => res.json())
+        .then((data) => sortFeaturesByVotes(data));
+    } catch (error) {}
+  };
+
+  const sortFeaturesByVotes = (votes) => {
+    let contentIds = [];
+
+    votes.map((vote) => {
+      contentIds.push(...contentIds, vote.contentId);
+    });
+
+    let uniqueContentIds = [...new Set(contentIds)];
+
+    const filteredData = uniqueContentIds.map((key) => {
+      const data = votes.filter((vote) => vote.contentId === key);
+      data.contentId = key;
+
+      return data;
+    });
+
+    const desc = filteredData.sort((a, b) => b.length - a.length);
+
+    const descOrder = desc.map((element) => {
+      return features.filter((feature) => feature._id === element.contentId);
+    });
+
+    const newData = descOrder.map((el) => {
+      return Object.assign({}, ...el);
+    });
+
+    setFeatures(newData);
+  };
 
   const getComments = () => {
     try {
@@ -97,6 +138,34 @@ const Home = () => {
     setFeatures(newData);
   };
 
+  const sortFeaturesByAlphabetically = () => {
+    // let sortedData =  features.sort((a, b) => {
+    //    if (a.title < b.title) {
+    //      return -1;
+    //    }
+    //    else if (a.title > b.title) {
+    //      return 1;
+    //    }
+    //    return 0 ;
+    //  });
+
+    try {
+      const sortedData = features.sort((a, b) => a.title.localeCompare(b.title))
+
+      const newData = [...sortedData]
+
+      console.log(newData)
+  
+      setFeatures(newData)
+    } catch (error) {
+      
+    }
+
+   };
+
+
+ 
+  console.log(features)
   return (
     <>
       <Header getSearchResult={getSearchResult} />
@@ -104,6 +173,8 @@ const Home = () => {
         features={features}
         loggedInUser={loggedInUser}
         getComments={getComments}
+        getVotes={getVotes}
+        sortFeaturesByAlphabetically={sortFeaturesByAlphabetically}
       />
     </>
   );
