@@ -8,7 +8,7 @@ const Comment = ({ comment }) => {
 
   const deleteComment = (id) => {
         if(window.confirm('Are you sure want to delete this comment ?')){
-            fetch(`http://localhost:5000/deleteComment/${id}`, {
+            fetch(`https://safe-lake-59483.herokuapp.com/deleteComment/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

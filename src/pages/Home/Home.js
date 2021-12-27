@@ -1,6 +1,5 @@
 import firebase from "firebase/app";
-import React, { useEffect } from "react";
-import { useContext, useState } from "react/cjs/react.development";
+import React, { useEffect,useContext, useState  } from "react";
 import { AuthContext } from "../../App";
 import { initializeLoginFramework } from "../../components/Account/loginManager/loginManager";
 import Header from "../../components/Header/Header";
@@ -43,14 +42,14 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/getPublishedFeatures?search=${search}`)
+    fetch(`https://safe-lake-59483.herokuapp.com/getPublishedFeatures?search=${search}`)
       .then((res) => res.json())
       .then((data) => setFeatures(data));
   }, [search]);
 
   useEffect(() => {
     try {
-      fetch("http://localhost:5000/getPublishedFeatures")
+      fetch("https://safe-lake-59483.herokuapp.com/getPublishedFeatures")
         .then((res) => res.json())
         .then((data) => setFeatures(data));
     } catch (error) {
@@ -64,7 +63,7 @@ const Home = () => {
 
   const getVotes = () => {
     try {
-      fetch(`http://localhost:5000/votes`)
+      fetch(`https://safe-lake-59483.herokuapp.com/votes`)
         .then((res) => res.json())
         .then((data) => sortFeaturesByVotes(data));
     } catch (error) {}
@@ -101,7 +100,7 @@ const Home = () => {
 
   const getComments = () => {
     try {
-      fetch(`http://localhost:5000/comments`)
+      fetch(`https://safe-lake-59483.herokuapp.com/comments`)
         .then((res) => res.json())
         .then((data) => {
           sortFeaturesByComments(data);

@@ -14,7 +14,7 @@ const FeaturesContent = ({loggedInUser}) => {
 
     useEffect(() => {
         try {
-            fetch('http://localhost:5000/features')
+            fetch('https://safe-lake-59483.herokuapp.com/features')
             .then(res => res.json())
             .then(data => setFeatures(data))
         } catch (error) {
@@ -23,16 +23,16 @@ const FeaturesContent = ({loggedInUser}) => {
     },[updateContent.id])
     const publishFeature = (status, id) => {
         try {
-            fetch(`http://localhost:5000/updatePublishStatus/${id}`,{
+            fetch(`https://safe-lake-59483.herokuapp.com/updatePublishStatus/${id}`,{
                 method: 'PATCH',
                 headers: {
                     'Content-Type' : 'application/json'
                 },
                 body: JSON.stringify({publish: status})
             })
-            .then(res => res.json())
-            .then(data => {
-                if(data){
+            .then(res => {
+                if(res.ok){
+                    console.log("This feature publish status is successfully updated 😊")
                     toast('This feature publish status is successfully updated 😊')
                 }
             })
@@ -42,7 +42,7 @@ const FeaturesContent = ({loggedInUser}) => {
     }
     const deleteFeature = id => {
         try {
-            fetch(`http://localhost:5000/deleteFeature/${id}`,{
+            fetch(`https://safe-lake-59483.herokuapp.com/deleteFeature/${id}`,{
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

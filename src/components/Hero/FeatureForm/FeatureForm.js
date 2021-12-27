@@ -19,7 +19,7 @@ const FeatureForm = () => {
 
     if(title && description ){
       try {
-        fetch('http://localhost:5000/addFeature', {
+        fetch('https://safe-lake-59483.herokuapp.com/addFeature', {
           method: 'POST',
           headers: {
             'Content-Type' : 'application/json'

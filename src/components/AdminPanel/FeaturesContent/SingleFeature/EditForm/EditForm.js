@@ -20,7 +20,7 @@ const EditForm = ({ updateContent, loggedInUser }) => {
     if (window.confirm("Are you sure want to update this feature content ?")) {
       if (title && description) {
         try {
-          fetch(`http://localhost:5000/updateFeature/${id}`, {
+          fetch(`https://safe-lake-59483.herokuapp.com/updateFeature/${id}`, {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",

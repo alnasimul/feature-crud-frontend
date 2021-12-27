@@ -39,9 +39,9 @@ const SingleFeature = ({ feature, publishFeature, deleteFeature, getUpdateConten
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li>
-              <a href='' className="dropdown-item pe-auto" onClick={() => allertForPublishFeature(true, _id)}>
+              <Link href='' className="dropdown-item pe-auto" onClick={() => allertForPublishFeature(true, _id)}>
                 Publish
-              </a>
+              </Link>
             </li>
             <li>
               <Link href='' className="dropdown-item pe-auto" onClick={() => getUpdateContent({id:_id, title, description})}>
@@ -49,15 +49,15 @@ const SingleFeature = ({ feature, publishFeature, deleteFeature, getUpdateConten
               </Link>
             </li>
             <li>
-              <a href='' className="dropdown-item pe-auto" onClick={() => alertForDeleteFeature(_id)}>
+              <Link href='' className="dropdown-item pe-auto" onClick={() => alertForDeleteFeature(_id)}>
                 Delete
-              </a>
+              </Link>
             </li>
             <hr/>
             <li>
-              <a href='' className="dropdown-item pe-auto" onClick={() => allertForPublishFeature(false, _id)}>
+              <Link href='' className="dropdown-item pe-auto" onClick={() => allertForPublishFeature(false, _id)}>
                 Undo Publish
-              </a>
+              </Link>
             </li>
           </ul>
           

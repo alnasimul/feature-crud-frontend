@@ -15,13 +15,13 @@ const SingleContent = ({ feature, loggedInUser }) => {
 
 
   useEffect(() => {
-    fetch(`http://localhost:5000/getVotes/${_id}`)
+    fetch(`https://safe-lake-59483.herokuapp.com/getVotes/${_id}`)
       .then((res) => res.json())
       .then((data) => setVotes(data.length));
   }, []);
   useEffect(() => {
     try {
-      fetch(`http://localhost:5000/getComments/${_id}`)
+      fetch(`https://safe-lake-59483.herokuapp.com/getComments/${_id}`)
         .then((res) => res.json())
         .then((data) => setContentComments(data));
     } catch (error) {
@@ -37,7 +37,7 @@ const SingleContent = ({ feature, loggedInUser }) => {
 
     if (comment) {
       try {
-        fetch(`http://localhost:5000/setUserComment`, {
+        fetch(`https://safe-lake-59483.herokuapp.com/setUserComment`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const SingleContent = ({ feature, loggedInUser }) => {
 
   const createVote = (id) => {
     try {
-      fetch(`http://localhost:5000/setUserVote`, {
+      fetch(`https://safe-lake-59483.herokuapp.com/setUserVote`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

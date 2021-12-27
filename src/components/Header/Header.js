@@ -16,8 +16,8 @@ const Header = ({ getSearchResult }) => {
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/checkAdmin/${
-        loggedInUser ? loggedInUser.email : userInfo.email
+      `https://safe-lake-59483.herokuapp.com/checkAdmin/${
+        userInfo ? userInfo.email : loggedInUser.email
       }`
     )
       .then((res) => res.json())
