@@ -1,6 +1,5 @@
 import firebase from "firebase/app";
-import React, { useEffect } from 'react';
-import { useContext } from 'react/cjs/react.development';
+import React, { useEffect, useContext } from 'react';
 import { AuthContext } from '../../App';
 import { initializeLoginFramework } from '../../components/Account/loginManager/loginManager';
 import FeaturesContent from '../../components/AdminPanel/FeaturesContent/FeaturesContent';
